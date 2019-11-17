@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+post#{{post.id}}
+{% block header %}
+<title>Fakebook | Statistics</title>
+{% endblock header %}
+
+{% block body %}
+<div class="row container-fluid main p-0 pt-3">
+    <div class="col-1 col-md-3 col-lg-3 col-xl-2 mr-1 mr-lg-4 border p-2 p-md-4 mt-3 rounded leftsidemenu">
+            <a href="#liked"><h5><i class="fas fa-heart"></i> Top Liked</h5></a>
+            <hr>
+            <a href="#thumbsup"><h5><i class="fas fa-thumbs-up"></i> Top Thumbed Up</h5></a>
+            <hr>
+            <a href="#thumbsdown"><h5><i class="fas fa-thumbs-down"></i> Top Thumbed Down</h5></a>
+            <hr>
+            <a href="#comment"><h5><i class="fas fa-comments"></i> Top Commented</h5></a>
+            <hr>
+            <a href="#follow"><h5 class="m-0"><i class="fas fa-bookmark"></i> Top Followed</h5></a>
+    </div>
+    <div class="col-9 col-md-7 col-lg-5 mainStatistic">
+        <div class="card mt-3" id="liked">
+            <div class="card-header">
+                    <h5 class="text-danger"><i class="fas fa-heart mr-2"></i> Top Liked Posts:</h5>
+            </div>
+            <div class="card-body text-center">
+                {% for post in posts_likes %}
+                <div class="container-fluid mx-auto mb-2">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">#{{loop.revindex}}: <img src={{post.avatar_url}} alt="avatar" width="50px" height="50px" class="rounded-circle mr-2">{{post.username}} - {{post.likes}} <i class="fas fa-heart mr-2"></i></h5>
+                            <hr>
+                            <p class="card-text">{{post.body}}</p>
+                            {% if post.image_url %}
+                            <img class="card-image" src={{post.image_url}} alt="post image" /><br>
+                            {% endif %}
+                            <hr>
+                            <a href="/postfeed/newest#post-{{post.id}}" class="btn btn-primary">Go to Post</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="card mt-4"  id="thumbsup">
+            <div class="card-header">
+                <h5 class="text-danger"><i class="fas fa-thumbs-up mr-2"></i> Top Thumbed Up Posts:</h5>
+            </div>
+            <div class="card-body text-center">
+                {% for post in posts_thumbsups %}
+                <div class="container-fluid mx-auto mb-2">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">#{{loop.revindex}}: <img src={{post.avatar_url}} alt="avatar" width="50px" height="50px" class="rounded-circle mr-2">{{post.username}} - {{post.thumbsups}} <i class="fas fa-thumbs-up mr-2"></i></h5>
+                            <hr>
+                            <p class="card-text">{{post.body}}</p>
+                            {% if post.image_url %}
+                            <img class="card-image" src={{post.image_url}} alt="post image" /><br>
+                            {% endif %}
+                            <hr>
+                            <a href="/postfeed/newest#post-{{post.id}}" class="btn btn-primary">Go to Post</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="card mt-4" id="thumbsdown">
+            <div class="card-header">
+                <h5 class="text-danger"><i class="fas fa-thumbs-down mr-2"></i> Top Thumbed Down Posts:</h5>
+            </div>
+            <div class="card-body text-center">
+                {% for post in posts_thumbsdowns %}
+                <div class="container-fluid mx-auto mb-2">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">#{{loop.revindex}}: <img src={{post.avatar_url}} alt="avatar" width="50px" height="50px" class="rounded-circle mr-2">{{post.username}} - {{post.thumbsdowns}} <i class="fas fa-thumbs-down mr-2"></i></h5>
+                            <hr>
+                            <p class="card-text">{{post.body}}</p>
+                            {% if post.image_url %}
+                            <img class="card-image" src={{post.image_url}} alt="post image" /><br>
+                            {% endif %}
+                            <hr>
+                            <a href="/postfeed/newest#post-{{post.id}}" class="btn btn-primary">Go to Post</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="card mt-4"  id="comment">
+            <div class="card-header">
+                <h5 class="text-danger"><i class="fas fa-comments mr-2"></i> Top Commented Posts:</h5>
+            </div>
+            <div class="card-body text-center">
+                {% for post in posts_comments %}
+                <div class="container-fluid mx-auto mb-2">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">#{{loop.revindex}}: <img src={{post.avatar_url}} alt="avatar" width="50px" height="50px" class="rounded-circle mr-2">{{post.username}} - {{post.comments}} <i class="fas fa-comments mr-2"></i></h5>
+                            <hr>
+                            <p class="card-text">{{post.body}}</p>
+                            {% if post.image_url %}
+                            <img class="card-image" src={{post.image_url}} alt="post image" /><br>
+                            {% endif %}
+                            <hr>
+                            <a href="/postfeed/newest#post-{{post.id}}" class="btn btn-primary">Go to Post</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="card mt-4" id="follow">
+            <div class="card-header">
+                <h5 class="text-danger"><i class="fas fa-bookmark mr-2"></i> Top Followed Users:</h5>
+            </div>
+            <div class="card-body text-center">
+                    <div class="row container">
+                            {% for user in users_follows %}
+                        <div class="card col-4 container">
+                            <div class="card-body">
+                                <h5 class="card-title">#{{loop.revindex}}:<br>
+                                    <img src={{user.avatar_url}} alt="avatar" width="50px" height="50px" class="rounded-circle mt-2 mr-2"> {{user.username}}</h5>
+                                <hr>
+                                <p class="card-text">{{user.follows}} <i class="fas fa-bookmark ml-2"></i></p>
+                                <hr>
+                                <a href="/user/{{user.id}}" class="btn btn-primary">Go to user page</a>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
+{% endblock body %}

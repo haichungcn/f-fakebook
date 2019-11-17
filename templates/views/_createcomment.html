@@ -1,0 +1,18 @@
+<div class="card createCommentCard" id="createComment_{{post.id}}">
+    <form id="createCommentFormPost_{{post.id}}"  action={{url_for('comment', id = post.id)}} method="POST">
+        <div class="card-body row m-0 p-0">
+            <div class="col-1 pt-3 mr-4">
+                <img class="rounded" src="{{current_user.avatar_url}}" alt="" width="60px" height="60px">
+            </div>
+            <div class="col p-3">
+                <div class="row container">
+                    <textarea form="createCommentFormPost_{{post.id}}" required class="col-12 postInput" name="body" id="commentInput{{post.id}}" cols="60" placeholder="What's on your mind ?" onkeyup="test(this)"></textarea>
+                    <div class="row container preview" id="preview"></div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer p-2">
+            <button id="commentBtn" class="btn btn-primary postBtn" type="submit" action={{url_for('comment', id = post.id)}}>Post Comment</button>
+        </div>
+    </form>
+</div>

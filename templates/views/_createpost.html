@@ -1,0 +1,16 @@
+<div class="card createPostCard">
+    <form id="createPostForm"  action={{url_for('post')}} method="POST">
+        <div class="card-body row m-0 p-0">
+            <div class="col-1 pt-3 mr-4">
+                <img class="rounded" src="{{current_user.avatar_url}}" alt="" width="60px" height="60px">
+            </div>
+            <div class="col p-3">
+                <div class="row container">
+                    <textarea form="createPostForm" class="col-12 postInput" autofocus required name="body" id="postInput" cols="60" placeholder="What's on your mind, {{current_user.username}}?" onkeyup="test(this)"></textarea>                
+                    <div class="row container preview" id="preview"></div>
+                </div>
+            </div>
+            <button id="postBtn" class="btn btn-primary postBtn m-0" type="submit" action={{url_for('post')}}>Post</button>
+        </div>
+    </form>
+</div>

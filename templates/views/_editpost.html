@@ -1,0 +1,23 @@
+<div class="card createPostCard" id="editPost_{{post.id}}">
+        <div class="row">
+            <div class="col-10"></div>
+            <div class="col-2">
+            <form id="deletePostForm" action={{url_for('deletepost', id = post.id)}} method="POST">
+                <button id="deletePostBtn" class="btn btn-danger m-1" type="submit">Delete</button>
+            </form>
+            </div>
+        </div>
+        <form id="editPostForm" action={{url_for('editpost', id = post.id)}} method="POST">
+            <div class="card-body row m-0 p-0">
+                <div class="col p-3">
+                    <div class="row container">
+                        <input class="col-12 h-100 border-0 postInput" required type="text" name="body" placeholder={{post.body|safe}} onkeyup="test(this)" />
+                        <div class="row container preview" id="preview"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer p-1">
+                <button id="editPostBtn" class="btn btn-primary float-right m-1 postBtn" type="submit">Save Changes</button>
+            </div>
+        </form>
+    </div>

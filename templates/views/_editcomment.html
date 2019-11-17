@@ -1,0 +1,23 @@
+<div class="card createCommentCard" id="editComment_{{post.id}}">
+    <div class="row">
+        <div class="col-10"></div>
+        <div class="col-2">
+        <form action={{url_for('deletecomment', id = comment.post_id, cid = comment.id)}} method="POST">
+            <button id="deleteBtn" class="btn btn-danger m-1" type="submit">Delete</button>
+        </form>
+        </div>
+    </div>
+    <form id="editCommentForm" action={{url_for('editcomment', id = comment.post_id, cid = comment.id)}} method="POST">
+        <div class="card-body row m-0 p-0">
+            <div class="col p-3">
+                <div class="row container">
+                    <textarea form="editCommentForm" class="col-12 postInput" required name="body" id="commentInput{{post.id}}" cols="60" placeholder={{comment.body}} defaultValue={{comment.body}} onkeyup="test(this)"></textarea>
+                    <div class="row container preview" id="preview"></div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer p-1">
+            <button id="editCommentBtn" class="btn btn-primary float-right m-1 postBtn" type="submit" action={{url_for('editcomment', id = comment.post_id, cid = comment.id)}}>Save Changes</button>
+        </div>
+    </form>
+</div>

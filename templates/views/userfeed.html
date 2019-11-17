@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    <title>Fakebook | User Feed</title>
+{% endblock header %}
+
+{% block body %}
+    <div class="row container-fluid main p-0 pt-3">
+        <div class="col-1 col-md-3 col-lg-3 col-xl-2 mr-1 mr-lg-4 border p-2 p-md-4 rounded leftsidemenu">
+            <a href="/statistics">
+            <h5><i class="fas fa-heart"></i> Top Liked</h5>
+            <hr>
+            <h5><i class="fas fa-thumbs-up"></i> Top Thumbed Up</h5>
+            <hr>
+            <h5><i class="fas fa-thumbs-down"></i> Top Thumbed Down</h5>
+            <hr>
+            <h5><i class="fas fa-comments"></i> Top Commented</h5>
+            <hr>
+            <h5 class="m-0"><i class="fas fa-bookmark"></i> Top Followed</h5>
+            </a>
+        </div>
+        <div class="col-9 col-md-6 col-lg-5">
+            {% include 'views/_createpost.html' %}
+            {% for post in posts  %}
+            {% include 'views/_post.html' %}
+            {% endfor %}
+        </div>
+        <div class="col-3 col-lg-3 col-xl-2 ml-0  ml-md-0 ml-lg-4 border rounded rightsidemenu px-md-0 px-lg-5 py-0 py-md-4 text-nowrap">
+            <div class="row d-flex justify-content-start align-items-center">
+                <img class="mr-3" src={{user.avatar_url}} alt="user_avatar" width="80px" height="80px">
+                <h3>{{user.username}}</h3>
+                {% if current_user.id != user.id %}
+                    <form id="followForm" action={{url_for("follow", id = user.id)}} method="POST">
+                        <button form="followForm" class="followBtn" type="submit">
+                            <i class="far fa-bookmark" onmouseover="replace1(this)" onmouseout="replace2(this)"></i>
+                        </button>
+                    </form>
+                {% endif %}
+            </div>
+            <hr>
+            <h5>{{posts|length}} - Posts</h5>
+            <h5>{{user.likes}} - Likes</h5>
+            <h5>{{user.thumbsUps}} - Thumbs Up</h5>
+            <h5>{{user.thumbsDowns}} - Thumbs Down</h5>
+            <h5>{{user.comments}} - Comments</h5>
+            <h5>{{user.followed}} - Followed</h5>
+            <h5 class="m-0">{{user.following}} - Following</h5>
+        </div>
+    </div>
+{% endblock body %}

@@ -1,0 +1,16 @@
+SQLAlchemy
+marshmallow
+marshmallow-sqlalchemy
+Flask
+Flask-Restful
+Flask-SQLAlchemy
+Flask-Marshmallow
+Flask-Script
+Flask-Migrate
+Flask-Caching
+Flask-HTTPAuth
+requests
+numpy
+pyyaml
+faker
+inflect

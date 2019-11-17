@@ -1,0 +1,49 @@
+<nav class="navbar navbar-expand-lg" id="navbar">
+    <!-- <div class="row container p-0"> -->
+        <div class="col container text-left nav-logo-container">
+            <i class="fab fa-facebook-square nav-logo" aria-hidden="true"></i>  
+            <form class="form-inline ml-2 mr-auto" id="navsearch">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-default" type="submit"><i class="fas fa-search"></i></button>
+            </form>
+        </div>
+        <button class="navbar-toggler mr-5 p-3" type="button" data-toggle="collapse" data-target="#navbarToggler1"
+            aria-controls="navbarToggler1" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fas fa-chevron-circle-down"></i>
+        </button>
+        <div class="collapse navbar-collapse container p-0" id="navbarToggler1">
+            <ul class="navbar-nav mt-2 mt-lg-0 m-0 text-center">
+                {% if current_user.is_authenticated %}
+                <li class="nav-item active mr-lg-3">
+                    <a class="nav-link" href="/postfeed/newest">Sort by newest<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active mr-lg-3">
+                    <a class="nav-link" href="/postfeed/oldest">Sort by oldest<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active mr-lg-3" id="navAva" >
+                    <a class="nav-link" href={{url_for("userposts", id = current_user.id)}}><img src="{{current_user.avatar_url}}" alt="avatar"></a>
+                </li>
+                <li class="nav-item active mr-lg-3">
+                        <a class="nav-link" href={{url_for("signout")}}>Log out</a>
+                </li>
+                {% else %}
+                <li class="nav-item active mr-lg-3">
+                    <a class="nav-link" href="/login">Login</a>
+                </li>
+                {% endif %}
+                <li class="nav-item mr-lg-3">
+                    <a class="nav-link" href="#post-2"><i class="fas fa-user-friends"></i></a>
+                </li>
+                <li class="nav-item mr-lg-3">
+                    <a class="nav-link" href="/blogs"><i class="fas fa-comment-dots"></i></a>
+                </li>
+                <li class="nav-item mr-lg-3">
+                    <a class="nav-link" href="/about"><i class="fas fa-bell"></i></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/contact"><i class="fas fa-question-circle"></i></a>
+                </li>
+            </ul>
+        </div>
+    <!-- </div> -->
+</nav>

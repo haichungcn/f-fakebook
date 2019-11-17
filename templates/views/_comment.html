@@ -1,0 +1,28 @@
+<div class="card-header row m-0 p-1">
+    <div class="col-1 d-flex justify-content-center align-items-center">
+        <img class="rounded" src="{{comment.avatar_url}}" alt="" width="40px" height="40px">
+    </div>
+    <div class="col-6 pt-2 m-0 d-flex justify-content-start align-items-center">
+        <h6><strong>{{comment.username}}</strong></h6>
+    </div>
+    <div class="col-5 p-2 pr-3 m-0 d-flex justify-content-end align-items-center">
+            {% if comment.updated != comment.timestamp %}
+            <small>updated on {{comment.updated}}</small> 
+            {% else %}
+            <small>commented on {{comment.timestamp}}</small>
+            {% endif %}
+        {% if current_user.id == comment.author %}
+            <a class="ml-3 editBtn"
+            data-toggle="collapse" data-target="#collapseEditComment_{{comment.id}}" aria-expanded="false" aria-controls="collapseEditComment_{{comment.id}}" ><i class="far fa-edit"></i></a>
+        {% endif %}
+    </div>
+</div>
+<div class="card-body">
+    {% if comment.image_url %}
+        <img class="card-img mb-3" alt='post_img' src={{comment.image_url}} />
+    {% endif %}
+    <p class="card-text">{{comment.body}}</p>
+    <div class="collapse" id="collapseEditComment_{{comment.id}}">
+        {% include 'views/_editcomment.html' %}
+    </div>
+</div>
