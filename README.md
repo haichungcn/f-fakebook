@@ -36,11 +36,8 @@ To create a GIF, use [LiceCap](http://www.cockos.com/licecap/), [RecordIt](http:
 * [x] User can see a count of how many comments each blog has (on both all blogs and single blog page).
 * [x] Implement: Vote or Like system, each user can only like or vote up/down once. If he attempts to do it again, return his action to 0 then allow him to vote/like again.
 * [x] Following feature, a user can follow other users, and will see all the blogs from them.
-* [ ] A page that show some statistics, e.g top bloggers, top vote/like blogs, top blogs which have most comments.
+* [x] A page that show some statistics, e.g top bloggers, top vote/like blogs, top blogs which have most comments.
 
-## The following **additional** features are implemented:
-
-* [x] List anything else that you can get done to improve the page!
 
 ## Time Spent and Lessons Learned
 
