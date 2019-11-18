@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin, LoginManager, logout_user, login_user, current_user, login_required
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
+from flask_migrate import Migrate
 
 app = Flask(__name__)
 
@@ -12,6 +13,9 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = 'Super Secret'
 
 db = SQLAlchemy(app)
+
+# setup flask migration
+migrate = Migrate(app, db)
 
 # setup Flask-login
 login_manager = LoginManager()
@@ -27,8 +31,9 @@ class Post(db.Model):
     author = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     timestamp = db.Column(db.DateTime(timezone=True), server_default = db.func.now())
     updated = db.Column(db.DateTime(timezone=True), server_default = db.func.now(), server_onupdate=db.func.now()) ## same as above, but with updating timestamp
+    views_count = db.Column(db.Integer, default=0)
 
-    def __repr__(self):
+    def __repr__(self): 
         return '<Task>' % self.id
 
 class User(UserMixin, db.Model):
@@ -240,6 +245,8 @@ def siunglepost(id):
     users = User.query.all()
 
     user = User.query.get(post.author)
+    post.views_count += 1
+    db.session.commit()
     post.username = user.username
     post.avatar_url = user.avatar_url
     post.comments = Comment.query.filter_by(post_id = post.id).count()
