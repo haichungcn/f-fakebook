@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    <title>Fakebook | Post #{{post.id}}</title>
+{% endblock header %}
+
+{% block body %}
+    <div class="row container-fluid main p-0 pt-3">
+        <div class="col-1 col-md-3 col-lg-3 col-xl-2 mr-1 mr-lg-4 border p-2 p-md-4 rounded leftsidemenu">
+            <div class="row container-fluid m-0">
+                    <h4 class="mb-4">STATISTICS:</h4>
+                <a href="/statistics">
+                    <h5><i class="fas fa-heart"></i> Top Liked</h5>
+                    <hr>
+                    <h5><i class="fas fa-thumbs-up"></i> Top Thumbed Up</h5>
+                    <hr>
+                    <h5><i class="fas fa-thumbs-down"></i> Top Thumbed Down</h5>
+                    <hr>
+                    <h5><i class="fas fa-comments"></i> Top Commented</h5>
+                    <hr>
+                    <h5 class="m-0"><i class="fas fa-bookmark"></i> Top Followed</h5>
+                </a>
+            </div>
+            <hr>
+            <div class="container-fluid">
+                <h4 class="mt-5 mb-5">EXPLORE:</h4>
+                {% for user in users %}   
+                    <a href="/user/{{user.id}}">   
+                        <img class="mr-3" src={{user.avatar_url}} alt="avatar" width="40px" height="40px">
+                        <span class="lead">{{user.username}}</span>
+                    </a>
+                    <hr>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-9 col-md-6 col-lg-5">
+            {% include 'views/_post.html' %}
+        </div>
+    </div>
+{% endblock body %}

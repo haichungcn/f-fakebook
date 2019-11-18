@@ -229,6 +229,41 @@ def post():
         else: flash('User try to post an empty post', 'warning')
     return redirect(url_for('home'))
 
+@app.route('/post/<id>', methods=['GET', 'POST'])
+@login_required
+def siunglepost(id):
+    post = Post.query.get(id)
+    comments = Comment.query.filter_by(post_id = id).all()
+    current_user.likes = 0
+    current_user.thumbsUps = 0
+    current_user.thumbsDowns = 0
+    users = User.query.all()
+
+    user = User.query.get(post.author)
+    post.username = user.username
+    post.avatar_url = user.avatar_url
+    post.comments = Comment.query.filter_by(post_id = post.id).count()
+    post.likes = Like.query.filter_by(post_id = post.id).count()
+    post.thumbsUps = Thumbsup.query.filter_by(post_id = post.id).count()
+    post.thumbsDowns = Thumbsdown.query.filter_by(post_id = post.id).count()
+    if post.author == current_user.id:
+        current_user.likes = current_user.likes + post.likes
+        current_user.thumbsUps = current_user.thumbsUps + post.thumbsUps
+        current_user.thumbsDowns = current_user.thumbsDowns + post.thumbsDowns
+    post.currentUserLike = Like.query.filter_by(author = current_user.id, post_id = post.id).first()
+    post.currentUserThumbsUp = Thumbsup.query.filter_by(author = current_user.id, post_id = post.id).first()
+    post.currentUserThumbsDown = Thumbsdown.query.filter_by(author = current_user.id, post_id = post.id).first()
+
+    for comment in comments:
+        user = User.query.get(comment.author)
+        comment.username = user.username
+        comment.avatar_url = user.avatar_url
+    
+    return render_template("views/singlepost.html",
+        post = post,
+        comments = comments,
+        users = users)
+
 @app.route("/post/<id>/edit", methods=['GET', 'POST'])
 @login_required
 def editpost(id):
