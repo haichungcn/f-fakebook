@@ -1,3 +1,4 @@
+import os
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin, LoginManager, logout_user, login_user, current_user, login_required
@@ -7,7 +8,7 @@ from flask_migrate import Migrate
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('PSQL') or 'sqlite:///db.db'
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = 'Super Secret'
