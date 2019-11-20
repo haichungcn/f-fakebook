@@ -45,6 +45,7 @@ class User(UserMixin, db.Model):
     password = db.Column(db.String, unique=True, nullable=False)
     avatar_url = db.Column(db.Text)
     birthday = db.Column(db.DateTime(timezone=True))
+    admin = db.Column(db.Boolean, default=False)
     timestamp = db.Column(db.DateTime(timezone=True), server_default = db.func.now())
 
     def __repr__(self):
