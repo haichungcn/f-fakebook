@@ -15,16 +15,16 @@
             <ul class="navbar-nav mt-2 mt-lg-0 m-0 text-center">
                 {% if current_user.is_authenticated %}
                 <li class="nav-item active mr-lg-3">
-                    <a class="nav-link" href="/postfeed/newest">Sort by newest<span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href={{url_for("post.postfeed", filter='most-recent')}}>Sort by newest<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item active mr-lg-3">
-                    <a class="nav-link" href="/postfeed/oldest">Sort by oldest<span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href={{url_for("post.postfeed", filter='oldest')}}>Sort by oldest<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item active mr-lg-3" id="navAva" >
-                    <a class="nav-link" href={{url_for("userposts", id = current_user.id)}}><img src="{{current_user.avatar_url}}" alt="avatar"></a>
+                    <a class="nav-link" href={{url_for("user.userposts", id = current_user.id)}}><img src="{{current_user.avatar_url}}" alt="avatar"></a>
                 </li>
                 <li class="nav-item active mr-lg-3">
-                        <a class="nav-link" href={{url_for("signout")}}>Log out</a>
+                    <a class="nav-link" href={{url_for("root.signout")}}>Log out</a>
                 </li>
                 {% else %}
                 <li class="nav-item active mr-lg-3">

@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block header %}
-    <title>Fakebook | Post Feed</title>
+    <title>Fakebook | Post #{{post.id}}</title>
 {% endblock header %}
 
 {% block body %}
@@ -34,23 +34,7 @@
             </div>
         </div>
         <div class="col-9 col-md-6 col-lg-5">
-            {% include 'views/_createpost.html' %}
-            {% for post in posts  %}
-            {% include 'views/_post.html' %}
-            {% endfor %}
-        </div>
-        <div class="col-3 col-lg-3 col-xl-2 ml-0  ml-md-0 ml-lg-4 border rounded rightsidemenu px-md-0 px-lg-5 py-0 py-md-4 text-nowrap">
-            <div class="row d-flex justify-content-start align-items-center mb-4">
-                <h3>{{current_user.username}} statistic:</h3>
-            </div>
-            <hr>
-            <h5 class="mt-3">{{current_user.posts}} Posts</h5>
-            <h5>{{current_user.likes}} Likes</h5>
-            <h5>{{current_user.thumbsUps}} Thumbs Up</h5>
-            <h5>{{current_user.thumbsDowns}} Thumbs Down</h5>
-            <h5>{{current_user.comments}} Comments</h5>
-            <h5>{{current_user.followed}} Followed</h5>
-            <h5 class="m-0">{{current_user.following}} Following</h5>
+            {% include 'post/components/_post.html' %}
         </div>
     </div>
 {% endblock body %}

@@ -9,13 +9,14 @@ post_blueprint = Blueprint('post', __name__, template_folder='../../templates')
 
 
 
-@post_blueprint.route('/feed/<sort>', methods=['GET'])
+@post_blueprint.route('/feed', methods=['GET'])
 @login_required
-def postfeed(sort):
-    if sort == "newest":
+def postfeed():
+    if request.args.get('filter') == 'most-recent':
         posts = Post.query.order_by(Post.timestamp.desc()).all()
-    elif sort == "oldest":
+    elif request.args.get('filter') == 'oldest':
         posts = Post.query.order_by(Post.timestamp.asc()).all()
+
     comments = Comment.query.order_by(Comment.timestamp.desc()).all()
     follows = Follow.query.filter_by(author = current_user.id).all()
     current_user.posts = Post.query.filter_by(author = current_user.id).count()
@@ -48,7 +49,7 @@ def postfeed(sort):
         comment.username = user.username
         comment.avatar_url = user.avatar_url
     
-    return render_template("views/postfeed.html",
+    return render_template("post/postfeed.html",
         posts = posts,
         comments = comments,
         follows = follows,
@@ -68,9 +69,9 @@ def post():
             db.session.add(new_post)
             db.session.commit()
             flash('Successfully posted', 'success')
-            return redirect(url_for('home'))
+            return redirect(url_for('root.home'))
         else: flash('User try to post an empty post', 'warning')
-    return redirect(url_for('home'))
+    return redirect(url_for('root.home'))
 
 @post_blueprint.route('/<id>', methods=['GET', 'POST'])
 @login_required
@@ -104,7 +105,7 @@ def singlepost(id):
         comment.username = user.username
         comment.avatar_url = user.avatar_url
     
-    return render_template("views/singlepost.html",
+    return render_template("post/singlepost.html",
         post = post,
         comments = comments,
         users = users)
@@ -120,10 +121,10 @@ def editpost(id):
                 post.image_url = request.form['image_url']
             db.session.commit()
             flash("successfully edited post", "success")
-            return redirect(url_for('home'))
+            return redirect(url_for('root.home'))
         else:
             flash("You can't leave the body empty", "warning")
-    return redirect(url_for('home'))
+    return redirect(url_for('root.home'))
 
 @post_blueprint.route("/<id>/delete", methods=['GET', 'POST'])
 @login_required
@@ -132,11 +133,11 @@ def deletepost(id):
         post = Post.query.get(id)
         if not post:
             flash("CAN'T NOT FIND YOUR POST", 'danger')
-            return redirect(url_for('home'))
+            return redirect(url_for('root.home'))
         db.session.delete(post)
         db.session.commit()
         flash("Successfully deleted post", 'success')
-        return redirect(url_for('home'))
+        return redirect(url_for('root.home'))
     return "404"
     
 
@@ -155,9 +156,9 @@ def comment(id):
             db.session.add(new_comment)
             db.session.commit()
             flash('Successfully posted comment', 'success')
-            return redirect(url_for('home'))
+            return redirect(url_for('root.home'))
         else: flash('User try to post an empty comment', 'warning')
-    return redirect(url_for('home'))
+    return redirect(url_for('root.home'))
 
 @post_blueprint.route("/<id>/comment/<cid>/edit", methods=['GET', 'POST'])
 @login_required
@@ -170,10 +171,10 @@ def editcomment(id, cid):
                 comment.image_url = request.form['image_url']
             db.session.commit()
             flash("successfully edited post", "success")
-            return redirect(url_for('home'))
+            return redirect(url_for('root.home'))
         else:
             flash("You can't leave the body empty", "warning")
-    return redirect(url_for('home'))
+    return redirect(url_for('root.home'))
 
 @post_blueprint.route("/<id>/comment/<cid>/delete", methods=['GET', 'POST'])
 @login_required
@@ -182,11 +183,11 @@ def deletecomment(id, cid):
         comment = Comment.query.get(cid)
         if not comment:
             flash("can't find your comment", 'danger')
-            return redirect(url_for('home'))
+            return redirect(url_for('root.home'))
         db.session.delete(comment)
         db.session.commit()
         flash("Successfully deleted comment", 'success')
-        return redirect(url_for('home'))
+        return redirect(url_for('root.home'))
     return "404"
 
 @post_blueprint.route("/<id>/like", methods=['GET', 'POST'])
@@ -203,7 +204,7 @@ def likePost(id):
             db.session.add(new_like)
             db.session.commit()
             flash('Successfully liked post', 'success')
-    return redirect(url_for("home"))
+    return redirect(url_for("root.home"))
 
 @post_blueprint.route("/<id>/thumbsup", methods=['GET', 'POST'])
 @login_required
@@ -223,7 +224,7 @@ def thumbsUpPost(id):
             db.session.delete(thumbsup)
             db.session.commit()
             flash('Successfully unthumbed up post', 'success')
-    return redirect(url_for("home"))
+    return redirect(url_for("root.home"))
 
 @post_blueprint.route("/<id>/thumbsdown", methods=['GET', 'POST'])
 @login_required
@@ -243,4 +244,4 @@ def thumbsDownPost(id):
             db.session.delete(thumbsdown)
             db.session.commit()
             flash('Successfully unthumbed down post', 'success')
-    return redirect(url_for("home"))
+    return redirect(url_for("root.home"))

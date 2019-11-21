@@ -2,12 +2,12 @@
         <div class="row">
             <div class="col-10"></div>
             <div class="col-2">
-            <form id="deletePostForm" action={{url_for('deletepost', id = post.id)}} method="POST">
+            <form id="deletePostForm" action={{url_for('post.deletepost', id = post.id)}} method="POST">
                 <button id="deletePostBtn" class="btn btn-danger m-1" type="submit">Delete</button>
             </form>
             </div>
         </div>
-        <form id="editPostForm" action={{url_for('editpost', id = post.id)}} method="POST">
+        <form id="editPostForm" action={{url_for('post.editpost', id = post.id)}} method="POST">
             <div class="card-body row m-0 p-0">
                 <div class="col p-3">
                     <div class="row container">

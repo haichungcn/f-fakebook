@@ -1,12 +1,12 @@
 <div class="card postCard mt-5 mb-4" id="post-{{post.id}}">
     <div class="card-header row m-0 p-1">
         <div class="col-1 d-flex justify-content-center align-items-center">
-            <a href={{url_for("userposts", id = post.author)}}>
+            <a href={{url_for("user.userposts", id = post.author)}}>
                 <img class="postAvatar rounded-circle" src={{post.avatar_url}} alt="" width="60px" height="60px">
             </a>
         </div>
         <div class="col-6 col-md-5 pl-5 pt-2 m-0 d-flex justify-content-start align-items-center">
-            <a href={{url_for("userposts", id = post.author)}}>
+            <a href={{url_for("user.userposts", id = post.author)}}>
                 <h5>{{post.username}}</h5>
             </a>
         </div>
@@ -29,12 +29,12 @@
         <p class="card-text p-3">{{post.body}}</p>
         <em><a class="p-3 muted" href="/post/{{post.id}}">+ Readmore</a></em>
         <div class="collapse" id="collapseEditPost_{{post.id}}">
-                {% include 'views/_editpost.html' %}
+                {% include 'post/components/_editpost.html' %}
         </div>
         <hr class="mt-3"/>
         <div class="row container m-0 px-0">
             <div class="col-4 iconContainer d-flex justify-content-between">
-                <form id="likeForm_{{post.id}}" action={{url_for("likePost", id = post.id)}} method='POST'>
+                <form id="likeForm_{{post.id}}" action={{url_for("post.likePost", id = post.id)}} method='POST'>
                     <button form="likeForm_{{post.id}}" href="#" type="submit" class="py-1 shadow-none" >
                         {% if post.likes > 0 %}
                             {{post.likes}}
@@ -48,7 +48,7 @@
                         {% endif %}
                     </button>
                 </form>
-                <form id="thumbsUpForm_{{post.id}}" action={{url_for("thumbsUpPost", id = post.id)}} method='POST'>
+                <form id="thumbsUpForm_{{post.id}}" action={{url_for("post.thumbsUpPost", id = post.id)}} method='POST'>
                         <button form="thumbsUpForm_{{post.id}}" href="#" type="submit" >
                             {% if post.thumbsUps > 0 %}
                                 {{post.thumbsUps}}
@@ -62,7 +62,7 @@
                             {% endif %}
                         </button>
                 </form>
-                <form id="thumbsDownForm_{{post.id}}" action={{url_for("thumbsDownPost", id = post.id)}} method='POST'>
+                <form id="thumbsDownForm_{{post.id}}" action={{url_for("post.thumbsDownPost", id = post.id)}} method='POST'>
                         <button form="thumbsDownForm_{{post.id}}" href="#" type="submit" >
                             {% if post.thumbsDowns > 0 %}
                                 {{post.thumbsDowns}}
@@ -99,7 +99,7 @@
     <div class="collapse" id="collapseCommentSection_{{post.id}}">
         {% for comment in comments %}
             {% if comment.post_id == post.id %}
-                {% include 'views/_comment.html' %}
+                {% include 'post/components/_comment.html' %}
                 <!-- <hr/> -->
             {% endif %}
         {% endfor %}
@@ -107,7 +107,7 @@
             <a href="#" class="btn btn-primary float-right" data-toggle="collapse" data-target="#collapseCommentEditor_{{post.id}}" aria-expanded="false" aria-controls="collapseCommentEditor_{{post.id}}">Comment</a>
         </div>
         <div class="collapse" id="collapseCommentEditor_{{post.id}}">
-            {% include 'views/_createcomment.html' %}
+            {% include 'post/components/_createcomment.html' %}
         </div>
     </div>    
 </div>
