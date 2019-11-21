@@ -2,7 +2,7 @@
 
 Created with love by: `Hai Chung`
   
-View online at: `none yet`
+View online at: https://haic-fbook.herokuapp.com/
   
 One or two sentence summary of your project. 
 
